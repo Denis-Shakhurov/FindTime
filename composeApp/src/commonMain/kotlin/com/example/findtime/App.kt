@@ -24,7 +24,7 @@ import findtime.composeapp.generated.resources.compose_multiplatform
 fun App() {
     MaterialTheme {
         Text(
-            text = "Hello, world!",
+            text = "Hello, world!!!!",
         )
     }
 }
