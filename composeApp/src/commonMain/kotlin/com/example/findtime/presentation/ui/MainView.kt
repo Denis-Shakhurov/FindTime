@@ -97,7 +97,11 @@ fun MainView(
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
+            // TODO: Replace with Dialog
 
+            when (selectedIndex.value) {
+                0 -> TimeZoneScreen(currentTimezoneStrings)
+            }
         }
     }
 }
