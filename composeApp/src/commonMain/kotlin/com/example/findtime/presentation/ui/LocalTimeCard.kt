@@ -33,7 +33,7 @@ fun LocalTimeCard(
             .padding(8.dp)
     ) {
         Card(
-            shape = AppThemeProvider.style.shapes.small,
+            shape = AppThemeProvider.style.shapes.medium,
             border = BorderStroke(1.dp, Color.Black),
             modifier = Modifier
                 .fillMaxWidth()

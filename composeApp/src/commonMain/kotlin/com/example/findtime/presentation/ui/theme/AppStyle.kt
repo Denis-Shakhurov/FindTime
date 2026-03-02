@@ -40,11 +40,11 @@ val appStyle = AppStyle(
             fontWeight = FontWeight.Normal,
             fontSize = 11.sp,
             color = Color.White
-        ),
+        )
     ),
     shapes = Shapes(
         small = RoundedCornerShape(4.dp),
-        medium = RoundedCornerShape(4.dp),
-        large = RoundedCornerShape(0.dp)
+        medium = RoundedCornerShape(8.dp),
+        large = RoundedCornerShape(16.dp)
     )
 )
