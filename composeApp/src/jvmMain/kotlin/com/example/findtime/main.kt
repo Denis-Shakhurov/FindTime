@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.example.findtime.presentation.App
 import com.example.findtime.presentation.ui.MainView
 
 fun main() {

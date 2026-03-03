@@ -1,48 +1,61 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+# Find Time
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+**Найдите идеальное время для встречи в разных часовых поясах.**
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Find Time — это кроссплатформенное мобильное и десктопное приложение, созданное с использованием Kotlin Multiplatform (KMP) и Compose Multiplatform. Оно позволяет пользователям выбирать несколько часовых поясов и визуально отображает пересечение рабочего времени, чтобы найти наиболее подходящее время для встречи, которое устроит всех участников.
 
-### Build and Run Android Application
+## Возможности
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+*   **Выбор нескольких часовых поясов:** Легко добавляйте и удаляйте часовые пояса из списка для сравнения.
+*   **Визуальное отображение пересечений:** Наглядная цветная временная шкала показывает текущее время в каждом поясе и подсвечивает часы, в которые рабочий день (например, с 9 до 17) пересекается у всех участников.
+*   **Умные подсказки:** Автоматически определяет и предлагает лучшее время для встречи на основе максимального пересечения стандартных рабочих часов.
+*   **Кроссплатформенность:** Работает на Android, iOS и десктопе (macOS, Windows, Linux) с единой кодовой базой.
 
-### Build and Run Desktop (JVM) Application
+## Технологический стек
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+Проект демонстрирует возможности современного Kotlin и разделения кода.
 
-### Build and Run iOS Application
+*   **Интерфейс:** [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform) (от JetBrains)
+*   **Бизнес-логика и состояние:** [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
+*   **Архитектура:** MVI (Model-View-Intent) с использованием [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) и [kotlinx.datetime](https://github.com/Kotlin/kotlinx-datetime) для работы с датами и временем.
+*   **Внедрение зависимостей:** Ручное внедрение для простоты и прозрачности.
+*   **Данные о часовых поясах:** Используются нативные базы данных платформ (iOS, Android, JVM) через `kotlinx-datetime`.
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## Запуск проекта
 
----
+Эти инструкции помогут вам скопировать проект и запустить его на локальной машине для разработки и тестирования.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### Необходимые компоненты
+
+*   **Android Studio** (рекомендуется последняя версия) с установленным плагином KMP.
+*   **Xcode** (если планируете запускать iOS приложение).
+*   **JDK 11** или выше (для десктопного приложения).
+
+### Установка и запуск
+
+1.  **Клонируйте репозиторий**
+    ```bash
+    git clone https://github.com/Denis-Shakhurov/FindTime.git
+    cd FindTime
+    ```
+
+2.  **Запустите десктопное приложение**
+    Это самый простой способ быстро протестировать основную логику.
+    ```bash
+    ./gradlew :desktopApp:run
+    ```
+
+3.  **Запустите Android приложение**
+    Откройте проект в Android Studio, дождитесь окончания индексации и запустите конфигурацию `composeApp` на эмуляторе или устройстве.
+
+4.  **Запустите iOS приложение**
+    *   Откройте проект в Android Studio.
+    *   Запустите конфигурацию `iosApp`, или
+    *   Перейдите в папку `iosApp/` и откройте проект в Xcode.
+
+## Как это работает
+
+1.  **Выбор поясов:** Пользователь выбирает часовые пояса из глобального списка (например, Москва, Нью-Йорк, Лондон, Токио).
+2.  **Обработка данных:** Общий ViewModel (в `composeApp`) использует `kotlinx.datetime` для получения текущего времени в каждом выбранном поясе.
+3.  **Расчет пересечений:** Модель проходит по 24-часовому окну, конвертируя каждый момент UTC в местное время каждого пояса. Проверяется, попадает ли это местное время в заданный диапазон "рабочих часов" (например, 09:00–17:00) для каждого пояса.
+4.  **Визуализация:** Временная шкала отрисовывается с помощью компонентов Compose Multiplatform, где разные цвета обозначают день/ночь и интенсивность пересечений.
