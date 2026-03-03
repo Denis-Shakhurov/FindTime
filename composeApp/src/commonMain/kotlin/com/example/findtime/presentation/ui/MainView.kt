@@ -115,6 +115,7 @@ fun MainView(
 
             when (selectedIndex.value) {
                 0 -> TimeZoneScreen(currentTimezoneStrings)
+                1 -> FindMeetingScreen(currentTimezoneStrings)
             }
         }
     }
